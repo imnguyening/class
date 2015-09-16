@@ -1,0 +1,1 @@
+[Video Walkthrough](ChatClient.gif)
