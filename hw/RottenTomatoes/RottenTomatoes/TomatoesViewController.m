@@ -11,6 +11,7 @@
 #import "TomatoesTableViewCell.h"
 #import "TomatoesDetailsViewController.h"
 #import "RTMoviesModel.h"
+#import "JTProgressHUD.h"
 
 @interface TomatoesViewController ()
 
@@ -36,6 +37,11 @@
     
     [self.navigationItem setTitle:@"Rotten Tomatoes"];
     
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
+    [self.navigationItem setBackBarButtonItem:backItem];
+    
+    [JTProgressHUD show];
     NSURL *url = [NSURL URLWithString:@"https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -48,6 +54,7 @@
             self.networkError = true;
         }
         [self.myTableView reloadData];
+        [JTProgressHUD hide];
         //NSLog(@"response: %@", responseDictionary);
     }];
 }
