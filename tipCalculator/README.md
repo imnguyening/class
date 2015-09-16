@@ -1,0 +1,1 @@
+![Video Walkthrough](tipCalculator.gif)
