@@ -1,1 +1,1 @@
-![Video Walkthrough](Instagram.gif)
+![Video Walkthrough](instagram.gif)
