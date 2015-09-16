@@ -20,3 +20,4 @@ Optional
     [ ] Customize the highlight and selection effect of the cell.
     [X] Customize the navigation bar.
 
+![Video Walkthrough](RottenTomatoes.gif)
