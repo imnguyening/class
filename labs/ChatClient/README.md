@@ -1,1 +1,1 @@
-[Video Walkthrough](ChatClient.gif)
+![Video Walkthrough](ChatClient.gif)
