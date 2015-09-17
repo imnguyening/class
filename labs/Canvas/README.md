@@ -1,1 +1,1 @@
-[Video Walkthrough](Canvas.gif)
+![Video Walkthrough](Canvas.gif)
