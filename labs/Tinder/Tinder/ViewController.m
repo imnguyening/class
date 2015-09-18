@@ -55,9 +55,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
         } else {
             self.profileImage.transform = CGAffineTransformMakeRotation(radians(-xDiff/2));
         }
-        
-        
-        //sender.view.center = CGPointMake(self.cardOriginalCenter.x + point.x, self.cardOriginalCenter.y + point.y);
         self.profileImage.center = CGPointMake(self.cardInitialCenter.x + xDiff, self.cardInitialCenter.y + yDiff);
     } else if (sender.state == UIGestureRecognizerStateEnded) {
         NSInteger xDiff = point.x - self.pointStart.x;
@@ -83,7 +80,7 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
                 self.profileImage.center = self.cardInitialCenter;
                 self.profileImage.transform = CGAffineTransformIdentity;
             }];
-        } else if (yDiff > 20) {
+        } else if (yDiff > 20 || yDiff < -20) {
             self.profileImage.center = self.cardInitialCenter;
             self.profileImage.transform = CGAffineTransformIdentity;
 
@@ -97,11 +94,6 @@ static inline double radians (double degrees) {return degrees * M_PI/180;}
             self.profileImage.center = self.cardInitialCenter;
             self.profileImage.transform = CGAffineTransformIdentity;
         }
-        
-        //[self presentViewController:vc2 animated:YES completion:nil];
-        //[self dismissViewControllerAnimated:YES completion:nil];
-            
-        
     }
     //[sender setTranslation:CGPointMake(0,0) inView:sender.view];
 }
