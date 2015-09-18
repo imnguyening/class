@@ -12,7 +12,6 @@
 @interface ViewController ()
 
 @property CGPoint cardInitialCenter;
-@property CGPoint cardOriginalCenter;
 @property CGPoint pointStart;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property Boolean isTopDrag;
@@ -35,10 +34,9 @@
 static inline double radians (double degrees) {return degrees * M_PI/180;}
 
 - (IBAction)onCardPanGesture:(UIPanGestureRecognizer *)sender {
-    self.cardOriginalCenter = self.profileImage.center;
     //CGPoint point = [sender translationInView:self.view];
     CGPoint point = [sender locationInView:self.view];
-    CGPoint velocity = [sender velocityInView: self.view];
+    //CGPoint velocity = [sender velocityInView: self.view];
     
     if (sender.state == UIGestureRecognizerStateBegan) {
         NSLog(@"Gesture began at: %f", point.y);
