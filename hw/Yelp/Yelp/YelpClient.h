@@ -2,12 +2,18 @@
 //  YelpClient.h
 //  Yelp
 //
-//  Created by Minh Nguyen on 9/16/15.
-//  Copyright (c) 2015 Minh Nguyen. All rights reserved.
+//  Created by Timothy Lee on 3/21/14.
+//  Copyright (c) 2014 codepath. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "BDBOAuth1RequestOperationManager.h"
+#import "Filters.h"
 
-@interface YelpClient : NSObject
+@interface YelpClient : BDBOAuth1RequestOperationManager
+
+- (id)initWithConsumerKey:(NSString *)consumerKey consumerSecret:(NSString *)consumerSecret accessToken:(NSString *)accessToken accessSecret:(NSString *)accessSecret;
+
+- (AFHTTPRequestOperation *)searchWithFilters:(Filters *)filters success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end

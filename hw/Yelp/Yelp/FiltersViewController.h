@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Filters.h"
 
-@interface FiltersViewController : UIViewController
+#define FilterViewSavedNotification @"FilterViewSavedNotification"
+
+@interface FiltersViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) Filters * filters;
 
 @end
