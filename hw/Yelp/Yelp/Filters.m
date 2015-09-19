@@ -24,7 +24,7 @@
 }
 
 -(NSString* )description {
-    return [NSString stringWithFormat:@"term: %@\nsort: %@\n", self.term, self.sort];
+    return [NSString stringWithFormat:@"term: %@\nsort: %li\n", self.term, self.sort];
 }
 
 @end

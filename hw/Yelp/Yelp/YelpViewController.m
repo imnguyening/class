@@ -78,7 +78,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 #pragma mark - Network
 - (void)doSearch {
-    if (self.businesses) {
+    if (self.businesses.count > 0) {
         // Reset View
         NSIndexPath *top = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView scrollToRowAtIndexPath:top atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -91,9 +91,11 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     }
 
     [self.client searchWithFilters:self.filters success:^(AFHTTPRequestOperation *operation, id response) {
-        //NSLog(@"response: %@", response);
-        self.businesses = [NSMutableArray arrayWithArray:[Business businessWithDictionaries:response[@"businesses"]]];
-        [self.tableView reloadData];
+        NSLog(@"response: %@", response);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.businesses = [NSMutableArray arrayWithArray:[Business businessWithDictionaries:response[@"businesses"]]];
+            [self.tableView reloadData];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"error: %@", [error description]);
     }];
@@ -118,9 +120,13 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
             [self.businesses addObjectsFromArray:moreBusinesses];
         }
         self.moreSearchActive = false;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tableView.tableFooterView = nil;
+            [self.tableView reloadData];
+        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.moreSearchActive = false;
+        self.tableView.tableFooterView = nil;
         NSLog(@"error: %@", [error description]);
     }];
 }
