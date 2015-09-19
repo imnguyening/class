@@ -31,4 +31,4 @@ Time spent: `<Number of hours spent>`
 
 ### Walkthrough
 
-![Video Walkthrough]('Yelp.gif')
+![Video Walkthrough](Yelp.gif)
