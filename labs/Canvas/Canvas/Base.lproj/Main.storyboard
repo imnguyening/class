@@ -31,7 +31,7 @@
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sad" id="AQO-VU-frk">
-                                        <rect key="frame" x="252.00000014305115" y="107" width="60" height="60"/>
+                                        <rect key="frame" x="252.00000014305112" y="107" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="sax-wd-tk2" appends="YES" id="EXq-pw-CZ7"/>
@@ -45,7 +45,7 @@
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="happy" id="ZLT-0S-v4P">
-                                        <rect key="frame" x="252.00000014305115" y="39" width="60" height="60"/>
+                                        <rect key="frame" x="252.00000014305112" y="39" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="r0Q-qs-Ok5" appends="YES" id="GiT-G6-IPp"/>

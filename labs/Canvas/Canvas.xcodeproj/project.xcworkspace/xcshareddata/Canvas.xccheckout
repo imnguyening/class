@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>7D69B948-20AB-48F5-9F46-EE67C552DE24</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Canvas</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>18184671362332ECA65FB3645AA440E46E285C97</key>
 		<string>https://github.com/imnguyening/class.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>labs/Canvas/Canvas.xcodeproj/project.xcworkspace</string>
+	<string>labs/Canvas/Canvas.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>18184671362332ECA65FB3645AA440E46E285C97</key>
