@@ -42,13 +42,6 @@ NSInteger const kMaxUserTimelineCount = 500;
         self.user = [User currentUser];
     }
     
-    if (self.user == nil) {
-        [self showLoginScreen];
-        return;
-    } else {
-        [self getTweets];
-    }
-    
     if ([[User currentUser].screenName isEqualToString:self.user.screenName]) {
         // Setup for current user
         self.isCurrentUser = true;
@@ -71,6 +64,13 @@ NSInteger const kMaxUserTimelineCount = 500;
         [self setTitle: [NSString stringWithFormat:@"@%@", self.user.screenName]];
         self.userTimeline = [[TweetTimeline alloc] init];
         self.isCurrentUser = false;
+    }
+    
+    if (self.user == nil) {
+        [self showLoginScreen];
+        return;
+    } else {
+        [self getTweets];
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetTableViewCell" bundle:nil] forCellReuseIdentifier:@"com.yahoo.tweet.cell"];
@@ -187,13 +187,11 @@ NSInteger const kMaxUserTimelineCount = 500;
 }
 
 - (void) newUserTweetCreated {
-    NSLog(@"New tweet");
     if (self.isCurrentUser) {
         User *currentUser = [User currentUser];
         currentUser.tweetCount = [NSString stringWithFormat:@"%li",[currentUser.tweetCount integerValue] + 1];
         NSData *data = [NSJSONSerialization dataWithJSONObject:currentUser.dictionary options:0 error:nil];
         self.user = currentUser;
-        NSLog(@"count: %@", currentUser.tweetCount);
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:kCurrentUserKey];
         [self updateHeaderCounts];
         [self.tableView reloadData];

@@ -184,7 +184,7 @@
 #pragma mark - sharedInstance
 // Helper functions to update the current user's home and my timeline
 - (void)addRetweet:(Tweet *)tweet {
-    NSLog(@"Adding user retweet");
+    //NSLog(@"Adding user retweet");
     TweetTimeline *shared = [TweetTimeline sharedInstance];
     [shared.userTweets insertObject:tweet atIndex:0];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNewUserTweetCreated object:nil];
