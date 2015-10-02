@@ -8,10 +8,10 @@
 
 #import "TweetTimeline.h"
 
-
 @interface TweetTimeline()
 
 @property (nonatomic, strong) NSMutableArray *tweets;
+@property (nonatomic, strong) NSMutableArray *userTweets;
 
 @end
 
@@ -33,6 +33,17 @@
     [[TwitterClient sharedInstance] homeTimelineWithParams:params completion:^(NSArray *tweets, NSError *error) {
         if (tweets != nil) {
             self.tweets = [NSMutableArray arrayWithArray:tweets];
+            completion(self, nil);
+        } else {
+            completion(nil, error);
+        }
+    }];
+}
+
+- (void)userTimelineWithParams:(NSDictionary *)params completion:(void (^)(TweetTimeline *timeline, NSError *error))completion {
+    [[TwitterClient sharedInstance] userTimelineWithParams:params completion:^(NSArray *tweets, NSError *error) {
+        if (tweets != nil) {
+            self.userTweets = [NSMutableArray arrayWithArray:tweets];
             completion(self, nil);
         } else {
             completion(nil, error);
@@ -64,6 +75,7 @@
             if (tweet != nil) {
                 tweet.retweeted = 1;
                 [self updateTweet:tweet];
+                [self addRetweet:myTweet];
                 completion(tweet,nil);
             } else {
                 completion(nil, error);
@@ -139,38 +151,96 @@
 }
 
 #pragma mark - NSMutableArray
-- (NSArray *)getTweets {
+- (NSArray *)getHomeTweets {
     return [NSArray arrayWithArray:self.tweets];
 }
 
-- (Tweet *)getTweetAtIndex: (NSInteger)index {
-    return self.tweets[index];
+- (Tweet *)getHomeTweetAtIndex: (NSInteger)index {
+    if (self.tweets[index]) {
+        return self.tweets[index];
+    }
+    return nil;
+}
+
+- (NSArray *)getUserTweets {
+    return [NSArray arrayWithArray:self.userTweets];
+}
+
+- (Tweet *)getUserTweetAtIndex: (NSInteger)index {
+    if (self.userTweets[index]) {
+        return self.userTweets[index];
+    }
+    return nil;
 }
 
 - (void)addTweet:(Tweet *)tweet {
-    [self.tweets insertObject:tweet atIndex:0];
+    TweetTimeline *shared = [TweetTimeline sharedInstance];
+    [shared.tweets insertObject:tweet atIndex:0];
+    [shared.userTweets insertObject:tweet atIndex:0];
     [[NSNotificationCenter defaultCenter] postNotificationName:kNewTweetCreated object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNewUserTweetCreated object:nil];
+}
+
+#pragma mark - sharedInstance
+// Helper functions to update the current user's home and my timeline
+- (void)addRetweet:(Tweet *)tweet {
+    NSLog(@"Adding user retweet");
+    TweetTimeline *shared = [TweetTimeline sharedInstance];
+    [shared.userTweets insertObject:tweet atIndex:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNewUserTweetCreated object:nil];
 }
 
 - (void)updateTweet:(Tweet *)tweet {
-    for (NSInteger i=0;i<self.tweets.count;i++) {
-        Tweet *myTweet = self.tweets[i];
-        if ([tweet.tweet_id isEqualToString:myTweet.tweet_id]) {
+    TweetTimeline *shared = [TweetTimeline sharedInstance];
+    for (NSInteger i=0;i<shared.tweets.count;i++) {
+        Tweet *myTweet = shared.tweets[i];
+        if ([myTweet.tweet_id isEqualToString:tweet.tweet_id]) {
             //NSLog(@"Updating tweet at index %li", i);
             self.tweets[i] = tweet;
             [[NSNotificationCenter defaultCenter] postNotificationName:kTweetUpdated object:nil];
+            break;
+        } else if (myTweet.retweetedTweet != nil && [myTweet.retweetedTweet.tweet_id isEqualToString:tweet.tweet_id]) {
+            //NSLog(@"Updating retweeted tweet at index %li", i);
+            myTweet.retweetedTweet = tweet;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kTweetUpdated object:nil];
+            break;
+        }
+    }
+    
+    for (NSInteger i=0;i<shared.userTweets.count;i++) {
+        Tweet *myTweet = shared.userTweets[i];
+        if ([myTweet.tweet_id isEqualToString:tweet.tweet_id]) {
+            //NSLog(@"Updating user tweet at index %li", i);
+            self.userTweets[i] = tweet;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserTweetUpdated object:nil];
+            break;
+        } else if (myTweet.retweetedTweet != nil && [myTweet.retweetedTweet.tweet_id isEqualToString:tweet.tweet_id]) {
+            //NSLog(@"Updating user retweeted at index %li", i);
+            myTweet.retweetedTweet = tweet;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserTweetUpdated object:nil];
             break;
         }
     }
 }
 
 - (void)removeTweet:(Tweet *)tweet {
-    for (NSInteger i=0;i<self.tweets.count;i++) {
-        Tweet *myTweet = self.tweets[i];
+    TweetTimeline *shared = [TweetTimeline sharedInstance];
+    for (NSInteger i=0;i<shared.tweets.count;i++) {
+        Tweet *myTweet = shared.tweets[i];
         if ([tweet.tweet_id isEqualToString:myTweet.tweet_id]) {
-            NSLog(@"Removing tweet at index %li", i);
+            //NSLog(@"Removing tweet at index %li", i);
             [self.tweets removeObjectAtIndex:i];
             [[NSNotificationCenter defaultCenter] postNotificationName:kTweetDeleted object:nil];
+            break;
+        }
+    }
+    
+    for (NSInteger i=0;i<shared.userTweets.count;i++) {
+        Tweet *myTweet = shared.userTweets[i];
+        if ([tweet.tweet_id isEqualToString:myTweet.tweet_id]) {
+            NSLog(@"Removing user tweet at index %li", i);
+            [self.userTweets removeObjectAtIndex:i];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserTweetDeleted object:nil];
             break;
         }
     }

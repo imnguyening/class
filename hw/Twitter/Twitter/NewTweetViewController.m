@@ -29,13 +29,15 @@
     
     self.userName.text = user.name;
     self.userScreenName.text = [NSString stringWithFormat:@"@%@", user.screenName];
-    
-    if (self.retweetTweet != nil) {
         
-    } else if (self.replyTweet != nil) {
+    if (self.replyTweet != nil) {
         self.tweetText.text = [NSString stringWithFormat:@"@%@ ", self.replyTweet.user.screenName];
         self.characterCount.text = [NSString stringWithFormat: @"%li", kMaxCharacterCount - self.tweetText.text.length];
+    } else if (self.statusText != nil) {
+        self.tweetText.text = [NSString stringWithFormat:@"%@ ", self.statusText];
+        self.characterCount.text = [NSString stringWithFormat: @"%li", kMaxCharacterCount - self.tweetText.text.length];
     }
+
     self.tweetText.delegate = self;
 }
 
@@ -51,9 +53,7 @@
 }
 - (IBAction)sendTweet:(UIBarButtonItem *)sender {
     NSLog(@"tweeting");
-    if (self.retweetTweet != nil) {
-        
-    } else if (self.replyTweet != nil) {
+    if (self.replyTweet != nil) {
         [[TweetTimeline sharedInstance] createTweetWithStatus:self.tweetText.text inReplyToTweet:self.replyTweet completion:^(Tweet *tweet, NSError *error) {
             if (tweet != nil) {
                 [self.navigationController popToRootViewControllerAnimated:YES];

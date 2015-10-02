@@ -11,8 +11,12 @@
 #import "User.h"
 #import "Tweet.h"
 #import "TweetTimeline.h"
+#import "UserViewController.h"
 
-@interface TweetsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TweetTableViewCellDelegate>
+extern NSString *const kShowHomeTab;
+extern NSString *const kShowUserTab;
+
+@interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, TweetTableViewCellDelegate>
 
 @end
 

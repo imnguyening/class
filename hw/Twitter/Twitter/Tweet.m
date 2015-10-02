@@ -12,6 +12,11 @@
 NSString *const kNewTweetCreated = @"kNewTweetCreated";
 NSString *const kTweetDeleted = @"kTweetDeleted";
 NSString *const kTweetUpdated = @"kTweetUpdated";
+
+NSString *const kNewUserTweetCreated = @"kNewUserTweetCreated";
+NSString *const kUserTweetDeleted = @"kUserTweetDeleted";
+NSString *const kUserTweetUpdated = @"kUserTweetUpdated";
+
 NSInteger const kMaxCharacterCount = 140;
 
 @implementation Tweet
@@ -27,6 +32,10 @@ NSInteger const kMaxCharacterCount = 140;
         self.retweeted = [dictionary[@"retweeted"] integerValue];
         self.favorites = [dictionary[@"favorite_count"] integerValue];
         self.retweets = [dictionary[@"retweet_count"] integerValue];
+        
+        if (dictionary[@"in_reply_to_screen_name"] != nil && ![[NSString stringWithFormat:@"%@", dictionary[@"in_reply_to_screen_name"]] isEqualToString:@"<null>"]) {
+            self.inReplyToScreenName = [NSString stringWithFormat:@"%@", dictionary[@"in_reply_to_screen_name"]];
+        }
         
         if (dictionary[@"quoted_status"] != nil) {
             self.quotedTweet = [[Tweet alloc] initWithDictionary:dictionary[@"quoted_status"]];

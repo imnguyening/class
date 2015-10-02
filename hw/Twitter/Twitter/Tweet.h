@@ -12,6 +12,11 @@
 extern NSString *const kNewTweetCreated;
 extern NSString *const kTweetDeleted;
 extern NSString *const kTweetUpdated;
+
+extern NSString *const kNewUserTweetCreated;
+extern NSString *const kUserTweetDeleted;
+extern NSString *const kUserTweetUpdated;
+
 extern NSInteger const kMaxCharacterCount;
 
 @interface Tweet : NSObject
@@ -25,6 +30,8 @@ extern NSInteger const kMaxCharacterCount;
 @property (nonatomic, assign) NSInteger retweeted;
 @property (nonatomic, assign) NSInteger favorites;
 @property (nonatomic, assign) NSInteger retweets;
+
+@property (nonatomic, strong) NSString *inReplyToScreenName;
 
 // Embedded tweets
 @property (nonatomic, strong) Tweet *quotedTweet;

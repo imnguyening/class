@@ -15,8 +15,6 @@ NSString *const kUserDidLogoutNotification = @"kUserDidLogoutNotification";
 
 @interface User()
 
-@property (nonatomic,strong) NSDictionary *dictionary;
-
 @end
 
 @implementation User
@@ -31,7 +29,14 @@ static User *_currentUser = nil;
         self.name = dictionary[@"name"];
         self.screenName = dictionary[@"screen_name"];
         self.profileImageUrl = dictionary[@"profile_image_url"];
+        self.bannerImageUrl = dictionary[@"profile_banner_url"];
         self.tagline = dictionary[@"description"];
+        self.location = dictionary[@"location"];
+        
+        self.followersCount = [NSString stringWithFormat:@"%@", dictionary[@"followers_count"]];
+        //self.followingCount = [NSString stringWithFormat:@"%@", dictionary[@"following"]];
+        self.followingCount = [NSString stringWithFormat:@"%@", dictionary[@"friends_count"]];
+        self.tweetCount = [NSString stringWithFormat:@"%@", dictionary[@"statuses_count"]];
     }
     
     return self;

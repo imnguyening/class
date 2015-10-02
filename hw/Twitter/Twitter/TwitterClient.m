@@ -82,6 +82,16 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
 }
 
+- (void)userTimelineWithParams:(NSDictionary *)params completion:(void (^)(NSArray *tweets, NSError *error))completion {
+    [self GET:@"1.1/statuses/user_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"%@", responseObject);
+        NSArray *tweets = [Tweet tweetsWithArray:responseObject];
+        completion(tweets, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completion(nil, error);
+    }];
+}
+
 - (void)getTweet:(NSString *)tweet_id completion:(void (^)(Tweet *tweet, NSError *error))completion {
     //NSLog(@"retrieving: %@", tweet_id);
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"id": tweet_id, @"include_my_retweet": @"1"}];
@@ -100,7 +110,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"status": status}];
     
     [self POST:@"1.1/statuses/update.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"tweet res: %@", responseObject);
+        //NSLog(@"tweet res: %@", responseObject);
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
         completion(tweet, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -151,7 +161,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     
     [self POST:@"1.1/favorites/create.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
-        NSLog(@"fav response: %@", responseObject);
+        //NSLog(@"fav response: %@", responseObject);
         completion(tweet, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completion(nil, error);

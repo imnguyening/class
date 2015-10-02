@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kCurrentUserKey;
 extern NSString * const kUserDidLoginNotification;
 extern NSString * const kUserDidLogoutNotification;
 
@@ -16,9 +17,16 @@ extern NSString * const kUserDidLogoutNotification;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) NSString *profileImageUrl;
+@property (nonatomic, strong) NSString *bannerImageUrl;
 @property (nonatomic, strong) NSString *tagline;
+@property (nonatomic, strong) NSString *location;
+
+@property (nonatomic, strong) NSString *followingCount;
+@property (nonatomic, strong) NSString *followersCount;
+@property (nonatomic, strong) NSString *tweetCount;
 
 -(id)initWithDictionary:(NSDictionary *)dictionary;
+@property (nonatomic,strong) NSDictionary *dictionary;
 
 +(User *)currentUser;
 +(void)setCurrentUser:(User *)currentUser;

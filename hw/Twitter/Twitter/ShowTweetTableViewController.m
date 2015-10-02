@@ -12,6 +12,8 @@
 
 @interface ShowTweetTableViewController ()
 
+@property (nonatomic, strong) Tweet *currentTweet;
+
 // first cell
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fRetweetImageTopConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *fRetweetImage;
@@ -38,22 +40,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _currentTweet = (self.tweet.retweetedTweet != nil) ? self.tweet.retweetedTweet : self.tweet;
     self.tableView.allowsSelection = NO;
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    [self.fUserImage setImageWithURL:[NSURL URLWithString:self.tweet.user.profileImageUrl]];
+    [self.fUserImage setImageWithURL:[NSURL URLWithString:_currentTweet.user.profileImageUrl]];
     
-    self.fUserName.text = self.tweet.user.name;
-    self.fUserScreenName.text = [NSString stringWithFormat:@"@%@",self.tweet.user.screenName];
-    self.fText.text = self.tweet.text;
+    self.fUserName.text = _currentTweet.user.name;
+    self.fUserScreenName.text = [NSString stringWithFormat:@"@%@",_currentTweet.user.screenName];
+    self.fText.text = _currentTweet.text;
     
-    if (self.tweet.retweetedTweet == nil) {
+    if (_currentTweet.retweetedTweet == nil) {
         self.fRetweetImage.hidden = YES;
         self.fRetweetText.hidden = YES;
         self.fRetweetImageTopConstraint.constant = -24;
     } else {
-        self.fRetweetText.text = [NSString stringWithFormat: @"%@ retweeted", self.tweet.retweetedTweet.user.name];
+        self.fRetweetText.text = [NSString stringWithFormat: @"%@ retweeted", _currentTweet.retweetedTweet.user.name];
     }
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -63,12 +66,12 @@
     
     [dateFormatter setLocale:[NSLocale currentLocale]];
     
-    NSString *dateString = [dateFormatter stringFromDate:self.tweet.createdAt];
+    NSString *dateString = [dateFormatter stringFromDate:_currentTweet.createdAt];
     
     self.fDate.text = dateString;
     
-    self.sRetweetCount.text = [NSString stringWithFormat:@"%li", self.tweet.retweets];
-    self.sFavoritesCount.text = [NSString stringWithFormat:@"%li", self.tweet.favorites];
+    self.sRetweetCount.text = [NSString stringWithFormat:@"%li", _currentTweet.retweets];
+    self.sFavoritesCount.text = [NSString stringWithFormat:@"%li", _currentTweet.favorites];
     
     [self updateRetweetButtonAndText];
     [self updateFavoriteButtonAndText];
@@ -107,9 +110,9 @@
 
 - (IBAction)retweetPressed:(id)sender {
     // Cannot retweet your own tweets
-    [[TweetTimeline sharedInstance] updateRetweetForTweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+    [[TweetTimeline sharedInstance] updateRetweetForTweet:_currentTweet completion:^(Tweet *tweet, NSError *error) {
         if (tweet) {
-            self.tweet = tweet;
+            _currentTweet = tweet;
             [self updateRetweetButtonAndText];
         } else {
             NSLog(@"Failed update retweet: %@", error);
@@ -118,9 +121,9 @@
 }
 
 - (IBAction)favoritePressed:(id)sender {
-    [[TweetTimeline sharedInstance] updateFavoriteForTweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+    [[TweetTimeline sharedInstance] updateFavoriteForTweet:_currentTweet completion:^(Tweet *tweet, NSError *error) {
         if (tweet) {
-            self.tweet = tweet;
+            _currentTweet = tweet;
             [self updateFavoriteButtonAndText];
         } else {
             NSLog(@"Failed to update fav: %@", error);
@@ -129,21 +132,21 @@
 }
 
 - (void)updateRetweetButtonAndText {
-    if (self.tweet.retweeted == 1) {
+    if (_currentTweet.retweeted == 1) {
         [self.tRetweetButton setImage:[UIImage imageNamed:@"retweet_on"] forState:UIControlStateNormal];
     } else {
         [self.tRetweetButton setImage:[UIImage imageNamed:@"retweet"] forState:UIControlStateNormal];
     }
-    self.sRetweetCount.text = [NSString stringWithFormat:@"%li", self.tweet.retweets];
+    self.sRetweetCount.text = [NSString stringWithFormat:@"%li", _currentTweet.retweets];
 }
 
 - (void)updateFavoriteButtonAndText {
-    if (self.tweet.favorited == 1) {
+    if (_currentTweet.favorited == 1) {
         [self.tFavoriteButton setImage:[UIImage imageNamed:@"favorite_on"] forState:UIControlStateNormal];
     } else {
         [self.tFavoriteButton setImage:[UIImage imageNamed:@"favorite"] forState:UIControlStateNormal];
     }
-    self.sFavoritesCount.text = [NSString stringWithFormat:@"%li", self.tweet.favorites];
+    self.sFavoritesCount.text = [NSString stringWithFormat:@"%li", _currentTweet.favorites];
 }
 
 
@@ -154,7 +157,7 @@
      if ([[segue identifier] isEqualToString:@"com.twitter.replytweet.segue"])
      {
          NewTweetViewController *vc = [segue destinationViewController];
-         [vc setReplyTweet:self.tweet];
+         [vc setReplyTweet:_currentTweet];
      }
  }
 

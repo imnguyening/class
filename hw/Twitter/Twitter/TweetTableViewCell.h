@@ -12,6 +12,7 @@
 @protocol TweetTableViewCellDelegate <NSObject>
 @required
 - (void)replyToTweet:(Tweet *)tweet;
+- (void)viewUserProfile:(User *)user;
 @end
 
 @interface TweetTableViewCell : UITableViewCell

@@ -16,6 +16,7 @@
 + (TweetTimeline *) sharedInstance;
 
 - (void)homeTimelineWithParams:(NSDictionary *)params completion:(void (^)(TweetTimeline *timeline, NSError *error))completion;
+- (void)userTimelineWithParams:(NSDictionary *)params completion:(void (^)(TweetTimeline *timeline, NSError *error))completion;
 - (void)createTweetWithStatus:(NSString* )status completion:(void (^)(Tweet *tweet, NSError *error))completion;
 - (void)updateRetweetForTweet:(Tweet *)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion;
 - (void)createTweetWithStatus:(NSString *)status inReplyToTweet:(Tweet*)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion;
@@ -23,6 +24,9 @@
 
 - (void)updateFavoriteForTweet:(Tweet *)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion;
 
-- (NSArray *)getTweets;
-- (Tweet *)getTweetAtIndex: (NSInteger)index;
+- (NSArray *)getHomeTweets;
+- (Tweet *)getHomeTweetAtIndex: (NSInteger)index;
+
+- (NSArray *)getUserTweets;
+- (Tweet *)getUserTweetAtIndex: (NSInteger)index;
 @end

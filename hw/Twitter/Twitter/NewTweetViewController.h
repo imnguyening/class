@@ -14,6 +14,7 @@
 @interface NewTweetViewController : UIViewController <UITextViewDelegate>
 
 @property (nonatomic, strong) Tweet *replyTweet;
-@property (nonatomic, strong) Tweet *retweetTweet;
+@property (nonatomic, strong) NSString *statusText;
+//@property (nonatomic, strong) Tweet *retweetTweet;
 
 @end
