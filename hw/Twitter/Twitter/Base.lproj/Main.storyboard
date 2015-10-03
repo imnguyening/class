@@ -201,27 +201,27 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fKh-sP-g10">
-                                                    <rect key="frame" x="8" y="32" width="48" height="48"/>
+                                                    <rect key="frame" x="16" y="32" width="48" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="48" id="Q4w-v7-ExE"/>
                                                         <constraint firstAttribute="width" constant="48" id="d1E-W9-Dqn"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retweet_on" translatesAutoresizingMaskIntoConstraints="NO" id="lLK-cQ-MAK">
-                                                    <rect key="frame" x="38" y="8" width="18" height="16"/>
+                                                    <rect key="frame" x="46" y="8" width="18" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="LBM-Yc-Px8"/>
                                                         <constraint firstAttribute="width" constant="18" id="cMk-y3-dNR"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minh Nguyen" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8K-ga-Yr0">
-                                                    <rect key="frame" x="64" y="40" width="342" height="17"/>
+                                                    <rect key="frame" x="72" y="40" width="334" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRo-jF-GpB">
-                                                    <rect key="frame" x="64" y="57" width="342" height="17"/>
+                                                    <rect key="frame" x="72" y="57" width="334" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -239,7 +239,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retweeted By Bob Cobb" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxX-W0-f6l">
-                                                    <rect key="frame" x="64" y="7" width="161" height="17"/>
+                                                    <rect key="frame" x="72" y="7" width="161" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -251,7 +251,7 @@
                                                 <constraint firstItem="NRo-jF-GpB" firstAttribute="trailing" secondItem="IQb-8n-qBS" secondAttribute="trailingMargin" id="2jr-iX-kpE"/>
                                                 <constraint firstItem="WGQ-oC-VVi" firstAttribute="leading" secondItem="IQb-8n-qBS" secondAttribute="leadingMargin" constant="8" id="6sh-6k-abG"/>
                                                 <constraint firstItem="hSY-Sz-WrF" firstAttribute="trailing" secondItem="IQb-8n-qBS" secondAttribute="trailingMargin" id="9MH-B4-bnI"/>
-                                                <constraint firstItem="fKh-sP-g10" firstAttribute="leading" secondItem="IQb-8n-qBS" secondAttribute="leadingMargin" id="Bsa-DJ-K1N"/>
+                                                <constraint firstItem="fKh-sP-g10" firstAttribute="leading" secondItem="IQb-8n-qBS" secondAttribute="leadingMargin" constant="8" id="Bsa-DJ-K1N"/>
                                                 <constraint firstItem="fKh-sP-g10" firstAttribute="top" secondItem="lLK-cQ-MAK" secondAttribute="bottom" constant="8" id="Eej-5O-gkO"/>
                                                 <constraint firstItem="K8K-ga-Yr0" firstAttribute="centerY" secondItem="fKh-sP-g10" secondAttribute="centerY" constant="-8" id="Ih9-e6-4vD"/>
                                                 <constraint firstItem="cxX-W0-f6l" firstAttribute="centerY" secondItem="lLK-cQ-MAK" secondAttribute="centerY" constant="-0.5" id="Kgr-cJ-rZs"/>
@@ -591,8 +591,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="khh-S1-ejl"/>
-        <segue reference="Uis-4Q-Gcp"/>
         <segue reference="GtZ-hp-lHr"/>
         <segue reference="kjM-fH-N08"/>
+        <segue reference="kdc-fQ-S2W"/>
     </inferredMetricsTieBreakers>
 </document>

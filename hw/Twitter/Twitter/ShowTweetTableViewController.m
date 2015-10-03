@@ -46,6 +46,8 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self.fUserImage setImageWithURL:[NSURL URLWithString:_currentTweet.user.profileImageUrl]];
+    self.fUserImage.layer.cornerRadius = 5.0;
+    self.fUserImage.layer.masksToBounds = YES;
     
     self.fUserName.text = _currentTweet.user.name;
     self.fUserScreenName.text = [NSString stringWithFormat:@"@%@",_currentTweet.user.screenName];
