@@ -285,7 +285,7 @@ NSInteger const kMaxUserTimelineCount = 500;
         [tableFooterView addSubview:loadingView];
         self.tableView.tableFooterView = tableFooterView;
         
-        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"count": [NSString stringWithFormat:@"%li",count]}];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"count": [NSString stringWithFormat:@"%li",count], @"screen_name": [NSString stringWithFormat:@"%@",self.user.screenName]}];
         [self.userTimeline userTimelineWithParams:params completion:^(TweetTimeline *timeline, NSError *error) {
             if (timeline != nil) {
                 [self reloadTable];
